@@ -47,15 +47,15 @@ nums2.length == n
 class Solution(object):
     def findMedianSortedArrays(self, nums1, nums2):
         """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: float
+        :param nums1:
+        :param nums2:
+        :return:
         """
         l = len(nums1) + len(nums2)
-        return self.findKth(nums1, nums2, l // 2) if l % 2 == 1 else (self.findKth(nums1, nums2,
-                                                                                   l // 2 - 1) + self.findKth(nums1,
-                                                                                                              nums2,
-                                                                                                              l // 2)) / 2.0
+        if l % 2 == 1:
+            return self.findKth(nums1, nums2, l // 2)
+        else:
+            return (self.findKth(nums1, nums2, l // 2 - 1) + self.findKth(nums1, nums2, l // 2)) / 2.0
 
     def findKth(self, A, B, k):
         if len(A) > len(B):
