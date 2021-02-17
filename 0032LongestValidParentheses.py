@@ -39,9 +39,9 @@ class Solution(object):
             if s[i] == '(':
                 stack += [i]
             else:
-                if stack != []:
+                if stack:
                     stack.pop(-1)
-                    if stack == []:
+                    if not stack:
                         if maxlen < i - valid + 1:
                             maxlen = i - valid + 1
                     else:
