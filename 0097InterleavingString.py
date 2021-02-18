@@ -21,9 +21,7 @@ class Solution(object):
         """
         if len(s1) + len(s2) != len(s3):
             return False
-        d = {}
-        d[(0, 0)] = True
-        d[(0, 0)] = True
+        d = {(0, 0): True}
         for i in range(1, len(s1) + 1):
             if s1[i - 1] == s3[i - 1]:
                 d[i, 0] = True
