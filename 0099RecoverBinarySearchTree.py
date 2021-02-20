@@ -34,19 +34,28 @@ class TreeNode(object):
         self.right = right
 
 
-class Solution(object):
+class Solution:
     def recoverTree(self, root):
         """
         :type root: TreeNode
         :rtype: None Do not return anything, modify root in-place instead.
         """
-        swapped = []
-        self.helper(root, None, swapped)
-        if len(swapped) == 1: swapped.append(swapped[0])
-        swapped[0][0].val, swapped[1][1].val = swapped[1][1].val, swapped[0][0].val
+        curr = root
+        prev = TreeNode(float('-inf'))
+        replace = []
+        stack = []
 
-    def helper(self, root, prev, swapped):
-        if not root: return prev
-        prev = self.helper(root.left, prev, swapped)
-        if prev and prev.val > root.val:  swapped.append([prev, root])
-        return self.helper(root.right, root, swapped) if root.right else root
+        while curr or stack:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+
+            temp = stack.pop()
+
+            if temp.val < prev.val:
+                replace.append((prev, temp))
+
+            prev = temp
+            curr = temp.right
+
+        replace[0][0].val, replace[-1][1].val = replace[-1][1].val, replace[0][0].val
