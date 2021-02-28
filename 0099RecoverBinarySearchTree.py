@@ -40,22 +40,35 @@ class Solution:
         :type root: TreeNode
         :rtype: None Do not return anything, modify root in-place instead.
         """
-        curr = root
-        prev = TreeNode(float('-inf'))
-        replace = []
-        stack = []
+        num = []
+        cur = root
+        self.add(num, cur)
+        for i in range(1, len(num)):
+            if num[i-1].val > num[i].val:
+                for j in range(i, 0, -1):
+                    if num[j-1].val > num[j].val:
+                        num[j - 1].val, num[j].val = num[j].val, num[j - 1].val
+                    else:
+                        break
 
-        while curr or stack:
-            while curr:
-                stack.append(curr)
-                curr = curr.left
+    def add(self, num, cur):
+        if cur is None:
+            return
+        else:
+            self.add(num, cur.left)
+            num.append(cur)
+            self.add(num, cur.right)
 
-            temp = stack.pop()
+a1 = TreeNode(1)
+a2 = TreeNode(2)
+a3 = TreeNode(3)
+a4 = TreeNode(4)
+a5 = TreeNode(5)
+a3.left = a1
+a1.right = a2
+a3.right = a5
+a5.left = a4
 
-            if temp.val < prev.val:
-                replace.append((prev, temp))
-
-            prev = temp
-            curr = temp.right
-
-        replace[0][0].val, replace[-1][1].val = replace[-1][1].val, replace[0][0].val
+a3.val, a5.val = a5.val, a3.val
+A = Solution()
+A.recoverTree(a3)
