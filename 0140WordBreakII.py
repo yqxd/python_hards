@@ -5,11 +5,16 @@ class Solution(object):
         :type wordDict: List[str]
         :rtype: List[str]
         """
+        if len(s) == 0:
+            return [""]
         result = []
         for word in wordDict:
             if s[0:len(word)] == word:
-                for subresult in self.wordBreak(s[len(word)::], wordDict):
-                    result += [word + " " + subresult]
+                if len(s) == len(word):
+                    result += [word]
+                else:
+                    for subresult in self.wordBreak(s[len(word)::], wordDict):
+                        result += [word + " " + subresult]
         return result
 
 
