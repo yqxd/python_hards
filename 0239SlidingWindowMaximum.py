@@ -35,15 +35,18 @@ class Solution:
         D = defaultdict(int)
         H = []
         for _ in range(k):
-            heappush(H, -nums[_])
+            if D[-nums[_]] == 0:
+                heappush(H, -nums[_])
             D[-nums[_]] += 1
         for _ in range(k, len(nums)):
             while D[H[0]] == 0:
                 heappop(H)
             result.append(-H[0])
+
             D[-nums[_ - k]] -= 1
+            if D[-nums[_]] == 0:
+                heappush(H, -nums[_])
             D[-nums[_]] += 1
-            heappush(H, -nums[_])
         while D[H[0]] == 0:
             heappop(H)
         result.append(-H[0])
